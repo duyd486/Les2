@@ -8,10 +8,16 @@ public class UIManager : MonoBehaviour
     //public TextMeshProUGUI textFuel;
     [SerializeField] private TextMeshProUGUI textCoin;
     [SerializeField] private TextMeshProUGUI textRound;
+    [SerializeField]private TextMeshProUGUI textFuel;
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(UpdateValue());
+        textCoin.text = DataManager.DataCoin.ToString();
+        textFuel.text = DataManager.DataFuel.ToString();
+        
+        GameManager.Instance.CoinEvent.AddListener(UpdateCoin);
+        GameManager.Instance.RoundEvent.AddListener(UpdateRound);
+        GameManager.Instance.FuelEvent.AddListener(UpdateFuel);
     }
 
     // Update is called once per frame
@@ -19,29 +25,32 @@ public class UIManager : MonoBehaviour
     {
 
     }
-    void UpdateCoin()
+    void UpdateCoin(int coin)
     {
-        int coin = GameManager.instance.GetCoin();
-        textCoin.text = coin.ToString();
+        if(textCoin != null)
+        {
+            textCoin.text = coin.ToString();
+        }
     }
     /*void UpdateFuel()
     {
         int fuel = GameManager.instance.GetFuel();
         textFuel.text = fuel.ToString();
     }*/
-    void UpdateRound()
+    void UpdateRound(int round)
     {
-        int round = GameManager.instance.GetRound();
-        textRound.text = round.ToString();
-    }
-    IEnumerator UpdateValue()
-    {
-        for(; ; )
+        if(textRound != null)
         {
-            yield return new WaitForSeconds(0.5f);
-            UpdateCoin();
-            //UpdateFuel();
-            UpdateRound();
+            textRound.text = round.ToString();
+
         }
     }
+    void UpdateFuel(int fuel)
+    {
+        if(textFuel != null)
+        {
+            textFuel.text = fuel.ToString();
+        }
+    }
+    
 }

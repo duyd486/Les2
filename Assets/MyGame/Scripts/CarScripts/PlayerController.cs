@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public int fuelValue = 20;
     public float damageValue = 50;
     public int coinValue = 1;
+    public int roundValue = 1;
     
     public GameObject explusionPrefabs;
 
@@ -37,7 +38,7 @@ public class PlayerController : MonoBehaviour
         if(other.tag == "fuel")
         {
             Destroy(other.gameObject);
-            GameManager.instance.SetFuel(fuelValue);
+            GameManager.Instance.SetFuel(fuelValue);
             InstantiateGame(other);
         }   
         else if (other.tag == "Dame")
@@ -50,7 +51,7 @@ public class PlayerController : MonoBehaviour
         {
             if(isGate == true)
             {
-                GameManager.instance.SetRound(1);
+                GameManager.Instance.SetRound(roundValue);
                 isGate = false;
             }
         }
@@ -60,7 +61,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (other.tag == "Coin")
         {
-            GameManager.instance.SetCoin(coinValue);
+            GameManager.Instance.SetCoin(coinValue);
             Destroy(other.gameObject);
         }
     }
